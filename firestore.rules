@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Connection probe document
+    match /test/{docId} {
+      allow get: if true;
+    }
+
+    // MIL-STD Machine cases & Shift logs
+    match /milstd_machines/{machineId} {
+      allow get, list: if true;
+      allow create, update, delete: if isSignedIn() && isValidId(machineId);
+    }
+
+    // Machine and variant master definitions
+    match /machines/{machineId} {
+      allow get, list: if true;
+      allow create, update, delete: if isSignedIn() && isValidId(machineId);
+    }
+  }
+}

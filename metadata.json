@@ -1,0 +1,6 @@
+{
+  "name": "Quality Data Center",
+  "description": "Internal industrial press test quality control and leak monitoring system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

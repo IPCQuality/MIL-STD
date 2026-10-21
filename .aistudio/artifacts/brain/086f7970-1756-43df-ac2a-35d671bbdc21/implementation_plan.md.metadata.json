@@ -1,0 +1,6 @@
+{
+  "summary":  "Rencana implementasi untuk menghapus kartu search dan filter berlebih di halaman MIL-STD, memastikan tombol Tambah Mesin selalu tampil menonjol, serta membersihkan fitur demo operator beralih ke sistem operator tunggal per shift berdasarkan akun yang login.",
+  "updatedAt":  "2026-10-20T20:32:35.325448708Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

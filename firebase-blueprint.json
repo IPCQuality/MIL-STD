@@ -1,0 +1,121 @@
+{
+  "entities": {
+    "MilStdMachine": {
+      "title": "MilStdMachine",
+      "description": "Equipment monitored in MIL-STD production line with shift logs",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique monitoring identifier like MIL-01",
+          "maxLength": 64
+        },
+        "mesin": {
+          "type": "string",
+          "description": "Equipment name",
+          "maxLength": 100
+        },
+        "varian": {
+          "type": "string",
+          "description": "Product variant processed",
+          "maxLength": 100
+        },
+        "category": {
+          "type": "string",
+          "description": "Monitoring case category",
+          "enum": [
+            "OVERHAUL",
+            "CHANGE OVER",
+            "STABILITY TINGGI",
+            "PERBAIKAN PART"
+          ]
+        },
+        "case": {
+          "type": "string",
+          "description": "Specific job or problem description",
+          "maxLength": 200
+        },
+        "line": {
+          "type": "string",
+          "description": "Production line like LINE A, LINE B, LINE C, WW, OT"
+        },
+        "ws": {
+          "type": "string",
+          "description": "Workstation code"
+        },
+        "cluster": {
+          "type": "string",
+          "description": "Product machine cluster"
+        },
+        "tanggal": {
+          "type": "string",
+          "description": "Start date in ISO format"
+        },
+        "infoTambahan": {
+          "type": "string",
+          "description": "Additional notes"
+        },
+        "overallStatus": {
+          "type": "string",
+          "description": "Machine monitoring status",
+          "enum": ["Setting PMA", "In Progress", "Selesai"]
+        },
+        "shift1": {
+          "type": "object",
+          "description": "Log for Shift 1"
+        },
+        "shift2": {
+          "type": "object",
+          "description": "Log for Shift 2"
+        },
+        "shift3": {
+          "type": "object",
+          "description": "Log for Shift 3"
+        }
+      },
+      "required": ["id", "mesin", "category", "case", "line", "overallStatus"]
+    },
+    "MachineMaster": {
+      "title": "MachineMaster",
+      "description": "Configurable equipment master record with associated variants",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Machine ID",
+          "maxLength": 64
+        },
+        "name": {
+          "type": "string",
+          "description": "Machine identifier or line label",
+          "maxLength": 100
+        },
+        "variants": {
+          "type": "array",
+          "description": "Compatible part variants"
+        },
+        "status": {
+          "type": "string",
+          "description": "Machine operational status"
+        }
+      },
+      "required": ["id", "name", "variants"]
+    }
+  },
+  "firestore": {
+    "/milstd_machines/{machineId}": {
+      "schema": "MilStdMachine",
+      "description": "Active and completed MIL-STD machine cases"
+    },
+    "/machines/{machineId}": {
+      "schema": "MachineMaster",
+      "description": "Equipment and variant master configurations"
+    },
+    "/test/{docId}": {
+      "schema": {
+        "type": "object"
+      },
+      "description": "Connection probe document"
+    }
+  }
+}
